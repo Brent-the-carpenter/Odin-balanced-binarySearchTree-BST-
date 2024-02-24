@@ -1,0 +1,25 @@
+{
+  "name": "odin-balanced-binarysearchtree-bst-",
+  "version": "1.0.0",
+  "description": "This is a binary search project.",
+  "main": "bs-nodeClass.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Brent-the-carpenter/Odin-balanced-binarySearchTree-BST-.git"
+  },
+  "author": "Brent-the-Carpenter",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Brent-the-carpenter/Odin-balanced-binarySearchTree-BST-/issues"
+  },
+  "homepage": "https://github.com/Brent-the-carpenter/Odin-balanced-binarySearchTree-BST-#readme",
+  "devDependencies": {
+    "eslint": "^8.56.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-import": "^2.29.1"
+  }
+}
