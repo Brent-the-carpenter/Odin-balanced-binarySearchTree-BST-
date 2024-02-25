@@ -1,8 +1,8 @@
 class BsNode {
-  constructor(data, left, right) {
+  constructor(data, left = null, right = null) {
     this.data = data;
-    this.right = left;
-    this.left = right;
+    this.right = right;
+    this.left = left;
   }
 }
 module.exports = BsNode;

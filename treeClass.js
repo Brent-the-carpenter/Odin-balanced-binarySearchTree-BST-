@@ -121,6 +121,22 @@ class Tree {
     return Math.max(leftHeight, rightHeight) + 1;
   }
 
+  depth(node, current = this.root, depth = 0) {
+    if (!node) return -1;
+    if (node === current) return depth;
+
+    if (node.data < current.data) {
+      depth += 1;
+      return this.depth(node, current.left, depth);
+    }
+    if (node.data > current.data) {
+      depth += 1;
+      return this.depth(node, current.right, depth);
+    }
+    // Return null to satisfy ESLint's consistent-return rule
+    return null;
+  }
+
   processLevel(node, level, callback, values) {
     if (!node) return null;
     if (level === 0) {
@@ -133,6 +149,8 @@ class Tree {
       this.processLevel(node.left, level - 1, callback, values);
       this.processLevel(node.right, level - 1, callback, values);
     }
+    // Return null to satisfy ESLint's consistent-return rule
+    return null;
   }
 
   levelOrderRecursive(callback) {
@@ -144,7 +162,7 @@ class Tree {
     return callback ? null : values;
   }
 
-  inOrder(node, callback, values = []) {
+  inOrder(node = this.root, callback = null, values = []) {
     if (!node) {
       return callback ? null : values;
     }
@@ -155,13 +173,13 @@ class Tree {
       callback(node);
     }
     this.inOrder(node.right, callback, values);
-    if (node === this.root && !callback) {
+    if (!callback) {
       return values;
     }
     return null;
   }
 
-  preOrder(node, callback, values = []) {
+  preOrder(node = this.root, callback = null, values = []) {
     if (!node) return callback ? null : values;
     if (!callback) {
       values.push(node.data);
@@ -176,7 +194,7 @@ class Tree {
     return null;
   }
 
-  postOrder(node, callback, values = []) {
+  postOrder(node = this.root, callback = null, values = []) {
     if (!node) return callback ? null : values;
     this.postOrder(node.left, callback, values);
     this.postOrder(node.right, callback, values);
@@ -189,6 +207,27 @@ class Tree {
 
     if (node === this.root && !callback) return values;
     return null;
+  }
+
+  isBalanced(node) {
+    if (!node) return true;
+    const leftHeight = this.calculateTreeHeight(node.left);
+    const rightHeight = this.calculateTreeHeight(node.right);
+    const heightDifference = Math.abs(leftHeight - rightHeight);
+    if (heightDifference > 1) {
+      return false;
+    }
+    const leftSubTree = this.isBalanced(node.left);
+
+    const rightSubTree = this.isBalanced(node.right);
+    if (heightDifference <= 1 && leftSubTree === true && rightSubTree === true)
+      return true;
+    return false;
+  }
+
+  rebalance() {
+    const sortedValues = this.inOrder(this.root);
+    this.root = this.buildTree(sortedValues);
   }
 }
 
@@ -205,7 +244,5 @@ const prettyPrint = (node, prefix = "", isLeft = true) => {
   }
 };
 
-const array1 = [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324];
-const tree1 = new Tree(array1);
-prettyPrint(tree1.root);
-module.exports = Tree;
+module.exports.Tree = Tree;
+module.exports.prettyPrint = prettyPrint;
