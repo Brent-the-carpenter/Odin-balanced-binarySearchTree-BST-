@@ -2,7 +2,7 @@ const { Tree, prettyPrint } = require("./treeClass");
 
 function generateRandomArray(size) {
   const arr = [];
-  for (let i = 0; i < size; i++) {
+  for (let i = 0; i < size; i += 1) {
     arr.push(Math.floor(Math.random() * 100));
   }
   return arr;
